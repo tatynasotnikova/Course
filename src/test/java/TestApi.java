@@ -41,4 +41,72 @@ public class TestApi {
                 .all();
     }
 
+    @Test
+    public void apiPostRawDataTest() {
+        String rawData = "RawData";
+
+        given().baseUri("https://postman-echo.com/")
+                .body(rawData)
+                .when()
+                .post("/post")
+                .then()
+                .statusCode(200)
+                .body("data", equalTo(rawData))
+                .log()
+                .all();
+    }
+
+    @Test
+    public void apiPutTest() {
+
+        String json = "{json1:This is the request body\"\n" +
+                "\"json2\":\"json2\"\n" +
+                "}";
+
+        given().baseUri("https://postman-echo.com/")
+                .header("Content-Type", "application/json")
+                .queryParam("hand", "wave")
+                .body(json)
+                .when()
+                .put("/put")
+                .then()
+                .statusCode(200)
+                .body("args.hand", equalTo("wave"))
+                .body("data", equalTo(json))
+                .log()
+                .all();
+    }
+
+    @Test
+    public void apiPatchTest() {
+
+        String patchData = "patch data";
+
+        given().baseUri("https://postman-echo.com/")
+                .body(patchData)
+                .when()
+                .patch("/patch")
+                .then()
+                .statusCode(200)
+                .body("data", equalTo(patchData))
+                .log()
+                .all();
+    }
+
+    @Test
+    public void apiDeleteTest() {
+
+        String deleteData = "detele data";
+
+        given().baseUri("https://postman-echo.com/")
+                .body(deleteData)
+                .when()
+                .delete("/delete")
+                .then()
+                .statusCode(200)
+                .body("data", equalTo(deleteData))
+                .log()
+                .all();
+    }
+
 }
